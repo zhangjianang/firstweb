@@ -1,0 +1,27 @@
+server:
+  port: 8062
+
+girl:
+  name: Lily
+  age: 18
+  content: content:${name},age:${age}
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+#  resources:
+#    static-locations:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.95.254.203:33060/daily?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    username: ***
+    password: ***
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      hbm2ddl:
+       auto: update
+    show-sql: true
