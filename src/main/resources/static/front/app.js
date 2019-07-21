@@ -78,4 +78,27 @@ $("#scheduler").jqxScheduler({
             alert(result);
         });
     });
+
+
+   $("#scheduler").on('appointmentChange', function (event) {
+//   保存用
+        var appointment = event.args.appointment;
+        var data = getAddInfo(appointment);
+        alert(data);
+        $.post("/calendar/update",{data:data},function(result){
+              alert(result);
+        });
+
+   });
+
+   function getAddInfo(appointment){
+        var param = {}
+           param['start'] = appointment.from.dateData;
+           param['end'] = appointment.to.dateData;
+           param['calendar'] = appointment.resourceId;
+           param['description'] = appointment.description;
+           param['location'] = appointment.location;
+           param['subject'] = appointment.subject;
+           return JSON.stringify(param);
+   }
 });

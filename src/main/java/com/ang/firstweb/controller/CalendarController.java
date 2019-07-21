@@ -31,10 +31,22 @@ public class CalendarController {
     public List<Calendar> getCalendarList(){
         return calendarRep.findAll();
     }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public int saveCalendar(@RequestParam(value = "data") String data){
         Calendar calendar = JSONObject.parseObject(data, Calendar.class);
         calendarRep.save(calendar);
         return 1;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public int updateCalendar(@RequestParam(value = "data") String data){
+        Calendar calendar = JSONObject.parseObject(data, Calendar.class);
+        Calendar save = calendarRep.save(calendar);
+        if(save!=null) {
+            return 1;
+        }else {
+            return 0;
+        }
     }
 }
