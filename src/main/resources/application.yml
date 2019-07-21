@@ -15,9 +15,9 @@ spring:
 #    static-locations:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.95.254.203:33060/daily?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-    username: ang
-    password: ang002
+    url: jdbc:mysql://www.happy.com:33060/daily?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    username: ***
+    password: ***
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
