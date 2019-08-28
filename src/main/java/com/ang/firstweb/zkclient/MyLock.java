@@ -1,9 +1,7 @@
 package com.ang.firstweb.zkclient;
 
 import org.I0Itec.zkclient.IZkChildListener;
-import org.I0Itec.zkclient.IZkStateListener;
 import org.I0Itec.zkclient.ZkClient;
-import org.apache.zookeeper.Watcher;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,25 +18,42 @@ public class MyLock implements IZkChildListener{
     private String  current;
     private CountDownLatch countDownLatch ;
 
-    public void lock() throws UnknownHostException, InterruptedException {
+    public void lock() {
         if(try2Lock()){
-
+            System.out.println(current+" 获得锁");
         }else{
+
             zkClient.subscribeChildChanges(PATH,this);
             countDownLatch = new CountDownLatch(1);
-            countDownLatch.await();
+            System.out.println(current+" 获取失败，等待");
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void unlock(){
-        zkClient.delete(PATH+"/"+current);
+        zkClient.delete(current);
+        System.out.println(current+" 删除成功");
     }
 
-    private Boolean try2Lock() throws UnknownHostException {
-        byte[] address = InetAddress.getLocalHost().getAddress();
+    private Boolean try2Lock() {
+        byte[] address = new byte[0];
+        try {
+            address = InetAddress.getLocalHost().getAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         String sub = "node";
         current =  zkClient.createEphemeralSequential(PATH+"/"+sub, address.toString());
+        return checkIsMin();
+    }
 
+    public Boolean checkIsMin(){
+
+        String sub = "node";
         List<String> children = zkClient.getChildren(PATH);
 
         Integer min = Integer.MAX_VALUE;
@@ -49,7 +64,7 @@ public class MyLock implements IZkChildListener{
             }
         }
 
-        if(Integer.parseInt(current.substring(sub.length())) == min){
+        if(Integer.parseInt(current.substring((PATH+"/"+sub).length())) == min){
             return true;
         }
         return false;
@@ -58,8 +73,31 @@ public class MyLock implements IZkChildListener{
 
     @Override
     public void handleChildChange(String parentPath, List<String> currentChilds) throws Exception {
-        if(try2Lock()){
+        if(checkIsMin()){
             countDownLatch.countDown();
+            System.out.println(current+" 唤醒成功");
+        }else {
+            zkClient.subscribeChildChanges(PATH, this);
+            System.out.println(current+" 唤醒失败，继续等待");
+        }
+    }
+
+    public static void main(String[] args) {
+        for(int i=0;i<10;i++){
+            new Thread(){
+                @Override
+                public void run() {
+                    MyLock myLock = new MyLock();
+                    myLock.lock();
+                    System.out.println("进行处理");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    myLock.unlock();
+                }
+            }.start();
         }
     }
 }
