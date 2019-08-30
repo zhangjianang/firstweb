@@ -16,4 +16,10 @@
     <dubbo:service interface="com.ang.firstweb.service.UserService" loadbalance="consistenthash" ref="userService"></dubbo:service>
 
     <bean id="userService" class="com.ang.firstweb.service.impl.UserServiceImpl"></bean>
+
+    <bean id ="hello" class="com.ang.firstweb.ioc.AngHello"/>
+
+    <bean id = "mydriver" class="com.ang.firstweb.ioc.MyDriverFactoryBean" init-method="init">
+        <property name="url" value="jdbc:mysql://localhost:3306"></property>
+    </bean>
 </beans>
