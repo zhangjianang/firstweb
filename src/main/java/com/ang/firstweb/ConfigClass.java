@@ -1,6 +1,9 @@
 package com.ang.firstweb;
 
+import com.ang.firstweb.aop.problem.MyBusiness;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -9,4 +12,8 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @ImportResource(locations="classpath:application-bean.xml")
 public class ConfigClass {
+    @Bean
+    public MyBusiness myBusiness(){
+        return new MyBusiness();
+    }
 }

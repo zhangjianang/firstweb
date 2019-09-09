@@ -2,6 +2,8 @@ package com.ang.firstweb.ioc;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.concurrent.ConcurrentLinkedDeque;
+
 /**
  * Created by adimn on 2019/8/30.
  */
@@ -12,5 +14,6 @@ public class IocMain {
 
 //        FactoryBean  常用来集成第三方
         System.out.println(context.getBean("mydriver").getClass());
+        ConcurrentLinkedDeque queue = new ConcurrentLinkedDeque();
     }
 }
