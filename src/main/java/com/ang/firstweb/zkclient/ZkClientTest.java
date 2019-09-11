@@ -18,7 +18,7 @@ public class ZkClientTest {
 //        简单的只用
         ZkClient zkClient = new ZkClient(connStr);
         zkClient.setZkSerializer(new MySerializer());
-//        addUser();
+//        addAng();
 
 //      watchInfo(zkClient);
         for(int i=0;i<10;i++) {
