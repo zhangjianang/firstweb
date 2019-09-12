@@ -14,8 +14,9 @@ public class MyUser {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Transactional(Transactional.TxType.NOT_SUPPORTED)
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void addAng(){
-        jdbcTemplate.execute("insert into ang(name,gender) value('郜林','ladyboy')");
+        jdbcTemplate.execute("insert into ang(name,gender) value('郜林',1)");
+        int i = 1 / 0;
     }
 }

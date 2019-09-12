@@ -21,6 +21,6 @@ public class MyAnnoTran {
     public void add(){
         jdbcTemplate.execute("insert into account(accountName,user,money) value ('anno','郜林',2000)");
         myUser.addAng();
-        int i = 1 / 0;
+//        int i = 1 / 0;
     }
 }
