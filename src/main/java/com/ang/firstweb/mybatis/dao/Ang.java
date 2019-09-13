@@ -31,4 +31,13 @@ public class Ang {
     public void setGender(Integer gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "Ang{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                '}';
+    }
 }
