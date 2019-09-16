@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ang.firstweb.mybatis.dao.AccountMapper">
+    <!--<resultMap id="innselect" type="">-->
+        <!--<id property="id" column="id"></id>-->
+    <!--</resultMap>-->
+
+    <select id="selectAcco"  resultType="hashmap">
+        select account.*,ang.name from ang join account ON ang.id = account.user_id
+    </select>
+
+    <select id="selectAccount" resultType="com.ang.firstweb.mybatis.dao.Account">
+        select * from account where id = #{id}
+    </select>
+
+    <insert id="addAccount" parameterType="com.ang.firstweb.mybatis.dao.Account">
+        insert into account (acc_name,user_id, money) VALUE (#{accountName},#{userID},#{money});
+    </insert>
+
+
+</mapper>

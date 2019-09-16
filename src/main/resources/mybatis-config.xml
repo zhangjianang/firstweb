@@ -33,7 +33,10 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/ang/firstweb/mybatis/dao/AngMapper.xml"/>
+        <!-- 需要修改打包方式， 将xml文件打入，等同于下面 -->
+        <!--<mapper resource="com/ang/firstweb/mybatis/dao/AngMapper.xml"/>-->
         <!--<mapper class="com.ang.firstweb.mybatis.dao.AngMapper"></mapper>-->
+
+        <mapper resource="mapper/AccountMapper.xml"/>
     </mappers>
 </configuration>

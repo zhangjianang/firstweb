@@ -7,4 +7,5 @@
     <select id="selectAng" resultType="com.ang.firstweb.mybatis.dao.Ang">
         select * from ang where id = #{id}
     </select>
+
 </mapper>
