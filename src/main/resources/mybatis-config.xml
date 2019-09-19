@@ -37,6 +37,9 @@
         <!--<mapper resource="com/ang/firstweb/mybatis/dao/AngMapper.xml"/>-->
         <!--<mapper class="com.ang.firstweb.mybatis.dao.AngMapper"></mapper>-->
 
+        <!--<package name="com.ang.firstweb.mybatis.dao"/>-->
+
+        <mapper resource="mapper/AngMapper.xml"/>
         <mapper resource="mapper/AccountMapper.xml"/>
     </mappers>
 </configuration>

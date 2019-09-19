@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface AngMapper {
 
-    @Select("select * from ang where id = #{id}")
+//    @Select("select * from ang where id = #{id}")
     Ang selectAng(Integer id);
 
     List<Ang> selectAll();
