@@ -16,8 +16,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://www.happy.com:33060/daily?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-    username: ***
-    password: ***
+    username: ang
+    password: ang002
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect

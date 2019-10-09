@@ -11,7 +11,7 @@ public class AopTest {
     public static void main(String[] args) {
 //        DefaultAopProxyFactory  决定是否采用jdk代理还是CGLIB动态代理
             AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigClass.class);
-//        context.refresh();
+//            context.refresh();
             MyBusiness bean = context.getBean(MyBusiness.class);
             bean.methodA();
         }

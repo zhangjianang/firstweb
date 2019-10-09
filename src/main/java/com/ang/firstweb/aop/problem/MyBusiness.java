@@ -1,6 +1,7 @@
 package com.ang.firstweb.aop.problem;
 
 
+import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +18,7 @@ public class MyBusiness {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        methodB();
+        ((MyBusiness)AopContext.currentProxy()).methodB();
     }
 
     public void methodB(){

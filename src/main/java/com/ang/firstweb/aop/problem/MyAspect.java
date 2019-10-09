@@ -1,14 +1,9 @@
 package com.ang.firstweb.aop.problem;
 
-import com.ang.firstweb.ConfigClass;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 @Aspect
@@ -19,7 +14,7 @@ public class MyAspect {
             " execution(* com.ang.firstweb.aop.problem.MyBusiness.methodB(..))")
     public void pc1(){};
 
-    @Around("pc1() ")
+    @Around("pc1()")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         String methodName = joinPoint.getSignature().getName();
         long st = System.currentTimeMillis();
