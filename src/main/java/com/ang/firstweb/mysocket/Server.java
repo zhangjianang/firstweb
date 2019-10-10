@@ -10,11 +10,13 @@ import java.net.Socket;
  * Created by adimn on 2019/10/10.
  */
 public class Server {
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(8001);
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(8001);
+        try (
+             Socket accept = serverSocket.accept();
              ) {
             while (true) {
-                Socket accept = serverSocket.accept();
+
                 InputStreamReader inputreader = new InputStreamReader(accept.getInputStream());
                 BufferedReader br = new BufferedReader(inputreader);
                 System.out.println("server 收到"+br.readLine());

@@ -11,21 +11,24 @@ public class Client {
         try (
                 InputStreamReader inputStreamReader = new InputStreamReader(System.in);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
+                Socket socket = new Socket("127.0.0.1", 8001);
+                OutputStream outputStream = socket.getOutputStream();
+//                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                PrintStream printStream = new PrintStream(outputStream)
         ) {
 
-            while (true) {
+            String line;
+            while ((line = reader.readLine()) != null) {
 
-                String line = reader.readLine();
+
                 if ("exit".equals(line)) {
                     System.exit(1);
                 }
-                Socket socket = new Socket("127.0.0.1", 8001);
-                OutputStream outputStream = socket.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-                writer.write(line);
-                writer.flush();
-
-                socket.close();
+                printStream.println(line);
+//                writer.write(line);
+//                writer.flush();
+//
+//                socket.close();
 
             }
         }
