@@ -14,6 +14,7 @@ import java.nio.charset.CharsetDecoder;
 public class FileChannelTry {
     public static void main(String[] args) {
         append();
+//        smallappend();
     }
 
     public static void copy(){
@@ -46,15 +47,44 @@ public class FileChannelTry {
                 RandomAccessFile raf = new RandomAccessFile(file,"rw");
                 FileChannel channel = raf.getChannel()
         ){
-            MappedByteBuffer mapbuffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
-            channel.position(file.length());
 
-//            ByteBuffer allocate = ByteBuffer.allocate(16);
-//            allocate.putChar('\\').putChar('\r').putChar('\\').putChar('\n');
-//            channel.write(allocate);
+  // TODO: 2019/10/10 添加多个buffer到同一个channel中？
+            MappedByteBuffer mapbuffer = channel.map(FileChannel.MapMode.READ_WRITE, 0, file.length());
+
+            channel.position(file.length());
             channel.write(mapbuffer);
 
+            byte[] hui = "---\r\n".getBytes();
+            ByteBuffer appbuffer = ByteBuffer.allocate(hui.length);
+            appbuffer.put(hui);
+            channel.write(appbuffer);
+
         }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void smallappend(){
+        File file = new File("D:\\b.txt");
+
+        try(
+                RandomAccessFile raf = new RandomAccessFile(file, "rw");
+                FileChannel channel = raf.getChannel();
+                ){
+            ByteBuffer allocate = ByteBuffer.allocate(1024);
+            while(channel.read(allocate)!=-1){
+                allocate.flip();
+
+                Charset gbk = Charset.forName("GBK");
+                CharsetDecoder charsetDecoder = gbk.newDecoder();
+                CharBuffer decode = charsetDecoder.decode(allocate);
+                System.out.println(decode);
+                allocate.clear();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

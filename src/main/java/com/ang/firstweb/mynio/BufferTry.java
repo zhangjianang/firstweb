@@ -7,7 +7,7 @@ import java.nio.CharBuffer;
  */
 public class BufferTry {
     public static void main(String[] args) {
-        CharBuffer buff = CharBuffer.allocate(10);
+        CharBuffer buff = CharBuffer.allocate(3);
         System.out.println("capacity:"+buff.capacity());
         System.out.println("position:"+buff.position());
         System.out.println("limit:"+buff.limit());
