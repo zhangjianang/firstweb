@@ -13,7 +13,7 @@ public class Client {
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 Socket socket = new Socket("127.0.0.1", 8001);
                 OutputStream outputStream = socket.getOutputStream();
-//                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
                 PrintStream printStream = new PrintStream(outputStream)
         ) {
 
@@ -24,11 +24,10 @@ public class Client {
                 if ("exit".equals(line)) {
                     System.exit(1);
                 }
-                printStream.println(line);
-//                writer.write(line);
-//                writer.flush();
-//
-//                socket.close();
+//                printStream.println(line);
+                writer.write(line);
+                writer.newLine();
+                writer.flush();
 
             }
         }
