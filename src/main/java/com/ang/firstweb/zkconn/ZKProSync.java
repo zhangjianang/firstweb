@@ -26,6 +26,7 @@ public class ZKProSync implements Watcher {
         System.out.println(new String(zk.getData(path, true, stat)));
 
         Thread.sleep(Integer.MAX_VALUE);
+
     }
 
 
