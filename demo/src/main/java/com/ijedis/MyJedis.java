@@ -31,11 +31,28 @@ public class MyJedis {
 //        for (int i = 0; i < 3; i++) {
 //            jedis.blpop(10, "list").stream().forEach(System.out::println);
 //        }
-        System.out.println(jedis.setnx("ang", "sth"));
-        Pipeline pl = jedis.pipelined();
-        pl.setnx("ang2","bb");
-        pl.get("ang2");
-        pl.syncAndReturnAll().stream().forEach(System.out::println);
+//        System.out.println(jedis.setnx("ang", "sth"));
+//        Pipeline pl = jedis.pipelined();
+//        pl.setnx("ang2","bb");
+//        pl.get("ang2");
+//        pl.syncAndReturnAll().stream().forEach(System.out::println);
+
+
+
+    }
+    public static void jexpire(Jedis jedis){
+        jedis.expire("ang",10);
+        for(int i=0;i<3;i++) {
+            System.out.println(jedis.get("ang"));
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void multiget(){
 
     }
 }
