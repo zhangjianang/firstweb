@@ -28,6 +28,7 @@ public class RpcServerHandler extends ChannelInboundHandlerAdapter {
         rpcResponse.setClassname(request.getClassname());
         rpcResponse.setReponse(res);
         rpcResponse.setMethodname(request.getMethodname());
+        rpcResponse.setId(request.getId());
         ctx.writeAndFlush(rpcResponse);
     }
 

@@ -32,7 +32,7 @@ public class RpcClient {
                                 1024, ClassResolvers.cacheDisabled(this.getClass().getClassLoader())
                         ));
                         ch.pipeline().addLast(new ObjectEncoder());
-                        ch.pipeline().addLast(new RpcRequestHandler());
+                        ch.pipeline().addLast(new RpcRequestHandler(null));
                     }
                 });
         ChannelFuture future = bootstrap.connect().sync();

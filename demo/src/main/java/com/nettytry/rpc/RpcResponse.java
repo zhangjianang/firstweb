@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Created by adimn on 2019/10/29.
  */
-public class RpcResponse implements Serializable{
+public class RpcResponse implements Serializable {
+    private  String id;
     private String methodname;
     private String classname;
     private Object reponse;
@@ -41,5 +42,13 @@ public class RpcResponse implements Serializable{
                 ", classname='" + classname + '\'' +
                 ", reponse=" + reponse +
                 '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
