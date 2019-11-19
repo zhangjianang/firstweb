@@ -1,4 +1,4 @@
-package com.ang.firstweb.pattern;
+package com.ang.firstweb.pattern.Template;
 
 /**
  * Created by adimn on 2019/11/5.
