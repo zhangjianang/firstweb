@@ -8,24 +8,27 @@ import java.util.Stack;
  */
 public class Temperatures {
 
-    public static void convertHiger(int[] in) {
-        int[] res = new int[in.length];
+    public static void convertHiger(int[] T) {
+        int[] res = new int[T.length];
         Stack stack = new Stack();
-        for (int i = 0; i < in.length; i++) {
+        for (int i = 0; i < T.length; i++) {
             if (stack.size() == 0) {
                 stack.push(i);
-            } else if (in[(int) stack.peek()] > in[i]) {
+            } else if (T[(int) stack.peek()] > T[i]) {
                 stack.push(i);
             } else {
-                int cur = (int) stack.pop();
-                res[cur] = i - cur;
+                while (stack.size() > 0 && T[(int) stack.peek()] < T[i]) {
+                    int cur = (int) stack.pop();
+                    res[cur] = i - cur;
+                }
+                stack.push(i);
             }
         }
         Arrays.stream(res).forEach(System.out::println);
     }
 
     public static void main(String[] args) {
-        int[] ints = {23, 25, 21, 19, 22, 26, 23};
+        int[] ints = {23, 24,25, 21, 19, 22, 26, 23};
         convertHiger(ints);
     }
 }
