@@ -111,7 +111,7 @@ public class ClimbStairs70 {
 
 
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length()][p.length()];
+        boolean[][] dp = new boolean[s.length()+1][p.length()+1];
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 1; j <= p.length(); j++) {
 

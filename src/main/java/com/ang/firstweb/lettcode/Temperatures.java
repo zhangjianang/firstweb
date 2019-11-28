@@ -28,7 +28,26 @@ public class Temperatures {
     }
 
     public static void main(String[] args) {
-        int[] ints = {23, 24,25, 21, 19, 22, 26, 23};
+        int[] ints = {23, 24, 25, 21, 19, 22, 26, 23};
         convertHiger(ints);
+    }
+
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        for (int i = 0; i < prices.length; i++) {
+
+            for (int j = i + 1; j < prices.length; j++) {
+                int cur = prices[j] - prices[i];
+                if (cur > max) {
+                    max = cur;
+                }
+            }
+        }
+        return max;
+    }
+
+    public int maxProfitMulti(int[] prices) {
+        int max = 0;
+        return max;
     }
 }

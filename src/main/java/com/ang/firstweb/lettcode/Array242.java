@@ -1,7 +1,9 @@
 package com.ang.firstweb.lettcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,34 +45,43 @@ public class Array242 {
      * @return
      */
     public int findShortestSubArray(int[] nums) {
+
+        List<Integer> integers;
+        Map<Integer,List<Integer>> info = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+
+            if(info.containsKey(nums[i])){
+                integers = info.get(nums[i]);
+                int i1 = integers.get(0) + 1;
+                integers.set(0,i1);
+
+                integers.set(2,i);
+            }else {
+                List<Integer> curinfo = new ArrayList<>(3);
+                curinfo.add(1);
+                curinfo.add(i);
+                curinfo.add(i);
+
+                info.put(nums[i],curinfo);
+            }
+        }
         int max = -1;
-        int num = -1;
-        for(int i=0;i<nums.length;i++){
-            int cur = 1;
-            for(int j=i+1;j<nums.length;j++){
-                if(nums[j] == nums[i]){
-                    cur++;
-                }
-            }
-            if(max<cur){
-                num = nums[i];
-                max = cur;
-            }
-        }
-        int start = 0;
-        boolean first = true;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i] == num){
-                if(first){
-                    start = i;
-                    first = false;
-                }
-                max--;
-                if(max<1){
-                    return i-start;
+        int min = nums.length+1;
+        for(Map.Entry<Integer,List<Integer>> entry:info.entrySet()){
+            List<Integer> value = entry.getValue();
+            int curmin = value.get(2) - value.get(1) +1;
+            if(value.get(0) > max ){
+                min = curmin;
+                max = value.get(0);
+            }else if(value.get(0) == max){
+                if( curmin < min) {
+                    min = curmin;
+                    max = value.get(0);
                 }
             }
         }
-        return -1;
+        return min;
     }
+
+
 }
