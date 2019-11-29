@@ -1,6 +1,8 @@
 package com.ang.firstweb.lettcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -111,7 +113,7 @@ public class ClimbStairs70 {
 
 
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length()+1][p.length()+1];
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 1; j <= p.length(); j++) {
 
@@ -124,5 +126,77 @@ public class ClimbStairs70 {
         return true;
     }
 
+    public int uniquePaths(int m, int n) {
+        int[][] num = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (i == 1 || j == 1) {
+                    num[i][j] = 1;
+                } else {
+                    num[i][j] = num[i - 1][j] + num[i][j - 1];
+                }
+            }
+        }
+        return num[m][n];
+    }
+
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+        int[][] num = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (obstacleGrid[i][j] == 1) {
+                    num[i][j] = 0;
+                } else if (i == 0) {
+                    if (j == 0) {
+                        num[i][j] = 1;
+                    } else {
+                        num[i][j] = num[i][j - 1];
+                    }
+                } else if (j == 0) {
+                    if (i == 0) {
+                        num[i][j] = 1;
+                    } else {
+                        num[i][j] = num[i - 1][j];
+                    }
+                } else {
+                    num[i][j] = num[i - 1][j] + num[i][j - 1];
+                }
+            }
+        }
+        return num[m - 1][n - 1];
+    }
+
+
+    public String longestPalindrome(String s) {
+        if(s.length()==0){
+            return "";
+        }
+        int max = 0;
+        String maxstr = "";
+        List<String> temp = new ArrayList<>(s.length());
+        temp.add(0, s.charAt(0) + "");
+        for (int i = 1; i < s.length(); i++) {
+            char cur = s.charAt(i);
+            String pre = temp.get(i - 1);
+            int plen = pre.length();
+            if (i - (plen + 1) >= 0 &&s.charAt(i - plen - 1)==cur) {
+                temp.add(i, s.charAt(i - plen - 1) + pre + cur);
+            } else if (cur == pre.charAt(plen-1)) {
+                temp.add(i, pre + "" + cur);
+            } else {
+                temp.add(i, cur + "");
+            }
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            String cur = temp.get(i);
+            if (cur.length() > max) {
+                max = cur.length();
+                maxstr = cur;
+            }
+        }
+        return maxstr;
+    }
 
 }
