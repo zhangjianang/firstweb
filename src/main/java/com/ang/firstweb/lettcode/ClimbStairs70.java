@@ -113,17 +113,24 @@ public class ClimbStairs70 {
 
 
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 1; j <= p.length(); j++) {
-
-                if (p.charAt(j) == s.charAt(i)) {
-                    dp[i][j] = true;
+        boolean[][] dp = new boolean[s.length()][p.length()];
+        for(int j=0;j<p.length();j++){
+            dp[0][j] = false;
+        }
+        for (int i = 1; i < s.length(); i++) {
+            for (int j = 1; j < p.length(); j++) {
+                if (p.charAt(j) == s.charAt(i) || p.charAt(j) == '.' ) {
+                    dp[i][j] =  dp[i-1][j-1];
+                }else if(p.charAt(j) == '*'){
+                    if(p.charAt(j-1) == '.'){
+                        dp[i][j] =  dp[i - 1][j - 1];
+                    }else {
+                        dp[i][j] = s.charAt(i) == p.charAt(j - 1) && dp[i - 1][j - 1];
+                    }
                 }
-
             }
         }
-        return true;
+        return dp[s.length()][p.length()];
     }
 
     public int uniquePaths(int m, int n) {
@@ -155,7 +162,7 @@ public class ClimbStairs70 {
                         num[i][j] = num[i][j - 1];
                     }
                 } else if (j == 0) {
-                    if (i == 0) {
+                    if (0 == i) {
                         num[i][j] = 1;
                     } else {
                         num[i][j] = num[i - 1][j];
@@ -170,7 +177,32 @@ public class ClimbStairs70 {
 
 
     public String longestPalindrome(String s) {
-        if(s.length()==0){
+        char[] chars = s.toCharArray();
+        boolean[][] isAdd = new boolean[chars.length][chars.length];
+        isAdd[0][0] = true;
+        int max = 0;
+        int start=0,end = 0;
+        for (int i = 1; i < chars.length; i++) {
+            for (int j = 0; j <= i; j++) {
+                if(i==j){
+                    isAdd[i][j] = true;
+                } else if (i - 1 > 0 && j + 1 < i) {
+                    isAdd[i][j] = isAdd[i - 1][j + 1] && chars[i] == chars[j];
+                } else {
+                    isAdd[i][j] = chars[i] == chars[j];
+                }
+                if (isAdd[i][j] && i - j > max) {
+                    max = i - j;
+                    start =j;
+                    end = i;
+                }
+            }
+        }
+        return s.substring(start,end+1);
+    }
+
+    public String longestPalindrome2(String s) {
+        if (s.length() == 0) {
             return "";
         }
         int max = 0;
@@ -181,12 +213,10 @@ public class ClimbStairs70 {
             char cur = s.charAt(i);
             String pre = temp.get(i - 1);
             int plen = pre.length();
-            if (i - (plen + 1) >= 0 &&s.charAt(i - plen - 1)==cur) {
+            if (i - plen - 1 >= 0 && s.charAt(i - plen - 1) == cur) {
                 temp.add(i, s.charAt(i - plen - 1) + pre + cur);
-            } else if (cur == pre.charAt(plen-1)) {
-                temp.add(i, pre + "" + cur);
             } else {
-                temp.add(i, cur + "");
+                temp.add(i, findLongestSub(pre, cur));
             }
         }
         for (int i = 0; i < temp.size(); i++) {
@@ -199,4 +229,25 @@ public class ClimbStairs70 {
         return maxstr;
     }
 
+    public String findLongestSub(String pre, Character cur) {
+        int num = 0;
+        int plen = pre.length();
+        for (int i = 0; i < plen; i++) {
+            if (pre.charAt(i) == cur) {
+                num++;
+            }
+        }
+        if (num == plen) {
+            return pre + cur;
+        } else {
+            if (plen - 2 > 0 && pre.charAt(plen - 2) == cur) {
+                return pre.substring(plen - 2) + cur;
+            }
+        }
+        return cur + "";
+    }
+
+    public int longestValidParentheses(String s) {
+        return 0;
+    }
 }

@@ -18,8 +18,15 @@ public class ClimbStairs70Test {
 
     @Test
     public void debug(){
-        int[][] num2={{0,1,0,0,0},{1,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
-        assertEquals(0,cc.uniquePathsWithObstacles(num2));
+        assertEquals("bab",cc.longestPalindrome("babad"));
+    }
+
+    @Test
+    public void isMatchTest(){
+        assertEquals(false,cc.isMatch("aa","a"));
+        assertEquals(true,cc.isMatch("aa","a*"));
+        assertEquals(false,cc.isMatch("mississippi","mis*is*p*."));
+        assertEquals(false,cc.isMatch("aab","c*a*b"));
     }
 
     @Test
@@ -49,6 +56,13 @@ public class ClimbStairs70Test {
         assertEquals("a",cc.longestPalindrome("a"));
         assertEquals("ccc",cc.longestPalindrome("ccc"));
         assertEquals("anana",cc.longestPalindrome("bananas"));
+        assertEquals("ababababababa",cc.longestPalindrome("ababababababa"));
+    }
+
+    @Test
+    public void longestValidParenthesesTest() {
+        assertEquals(2,cc.longestValidParentheses("(()"));
+        assertEquals(4,cc.longestValidParentheses(")()())"));
     }
 
 }
