@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 /**
  * Created by adimn on 2019/11/29.
  */
-public class ClimbStairs70Test {
-    ClimbStairs70 cc;
+public class DynamicPracticeTest {
+    DynamicPractice cc;
 
     @Before
     public void init(){
-        cc = new ClimbStairs70();
+        cc = new DynamicPractice();
     }
 
     @Test
@@ -26,7 +26,7 @@ public class ClimbStairs70Test {
         assertEquals(false,cc.isMatch("aa","a"));
         assertEquals(true,cc.isMatch("aa","a*"));
         assertEquals(false,cc.isMatch("mississippi","mis*is*p*."));
-        assertEquals(false,cc.isMatch("aab","c*a*b"));
+        assertEquals(true,cc.isMatch("aab","c*a*b"));
     }
 
     @Test

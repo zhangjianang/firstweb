@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by adimn on 2019/11/22.
  */
-public class ClimbStairs70 {
+public class DynamicPractice {
     private static Map<Integer, Integer> res = new HashMap<>();
 
     public static int climbStairs(int n) {
@@ -114,8 +114,16 @@ public class ClimbStairs70 {
 
     public boolean isMatch(String s, String p) {
         boolean[][] dp = new boolean[s.length()][p.length()];
-        for(int j=0;j<p.length();j++){
-            dp[0][j] = false;
+        dp[0][0] = p.charAt(0)==s.charAt(0) || p.charAt(0)=='.';
+        for(int j=1;j<p.length();j++){
+            if(p.charAt(j) == '*') {
+                dp[0][j] = dp[0][j - 1];
+            }else {
+                dp[0][j] = p.charAt(j) == s.charAt(0) || p.charAt(j)=='.';
+            }
+            if(dp[0][j]){
+                break;
+            }
         }
         for (int i = 1; i < s.length(); i++) {
             for (int j = 1; j < p.length(); j++) {
@@ -130,7 +138,7 @@ public class ClimbStairs70 {
                 }
             }
         }
-        return dp[s.length()][p.length()];
+        return dp[s.length()-1][p.length()-1];
     }
 
     public int uniquePaths(int m, int n) {
@@ -250,4 +258,9 @@ public class ClimbStairs70 {
     public int longestValidParentheses(String s) {
         return 0;
     }
+
+    public int lenLongestFibSubseq(int[] A) {
+        return -1;
+    }
 }
+
