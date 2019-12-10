@@ -3,6 +3,39 @@ package com.ang.firstweb.lettcode;
 import java.util.*;
 
 public class PriorityQueue {
+
+
+    public List<Integer> topKFrequentClean(int[] nums, int k) {
+        Map<Integer, Integer> frequent = new HashMap<>(nums.length);
+        java.util.PriorityQueue<Integer> pq = new java.util.PriorityQueue<>(k, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return frequent.get(o1)-frequent.get(o2);
+            }
+        });
+        for (int i = 0; i < nums.length; i++) {
+            int cur = nums[i];
+            if (frequent.containsKey(cur)) {
+                frequent.put(cur, frequent.get(cur) + 1);
+            } else {
+                frequent.put(cur, 1);
+            }
+        }
+
+        for(Integer per :frequent.keySet()){
+            pq.add(per);
+            if(pq.size()>k) {
+                pq.poll();
+            }
+        }
+//        Arrays.asList((Integer[]) pq.toArray());
+        List <Integer> res = new ArrayList<>();
+        for(Object per :pq.toArray()){
+            res.add(Integer.parseInt(per.toString()));
+        }
+        return  res;
+    }
+
     public List<Integer> topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> frequent = new HashMap<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
@@ -77,24 +110,41 @@ public class PriorityQueue {
 
 class KthLargest {
     private java.util.PriorityQueue<Integer> pq = new java.util.PriorityQueue();
+    private Integer k;
     public KthLargest(int k, int[] nums) {
+        this.k = k;
         for (int i = 0; i < nums.length; i++) {
             pq.add(nums[i]);
-            if (pq.size()>k) {
+            if (pq.size() > k) {
                 pq.poll();
             }
         }
     }
+
     public int add(int val) {
-        if(val>pq.peek()) {
+        if (pq.size()==k && val > pq.peek()) {
             pq.add(val);
             pq.poll();
+        }else if(pq.size()==k-1) {
+            pq.add(val);
         }
-        return  pq.peek();
+        return pq.peek();
     }
 
     public static void main(String[] args) {
-        int[] arr = {4,5,8,2};
+
+        int[] arr2 = {};
+        KthLargest kthLargest2 = new KthLargest(1, arr2);
+        System.out.println(kthLargest2.add(-3));
+        System.out.println(kthLargest2.add(-2));
+        System.out.println(kthLargest2.add(-4));
+        System.out.println(kthLargest2.add(0));
+        System.out.println(kthLargest2.add(4));
+
+    }
+
+    public static void t1(){
+        int[] arr = {4, 5, 8, 2};
         KthLargest kthLargest = new KthLargest(3, arr);
 
         System.out.println(kthLargest.add(3));
@@ -104,8 +154,5 @@ class KthLargest {
         // returns 8
         System.out.println(kthLargest.add(4));
         // returns 8
-
-//["KthLargest","add","add","add","add","add"]
-//[[1,[]],[-3],[-2],[-4],[0],[4]]
     }
 }
