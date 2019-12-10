@@ -3,17 +3,18 @@ package com.ang.firstweb.lettcode;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class PriorityQueueTest {
-    PriorityQueue pq;
+    PriorityQueueTry pq;
     KthLargest kl;
 
     @Before
     public void init(){
-        pq = new PriorityQueue();
+        pq = new PriorityQueueTry();
     }
 
     @Test
@@ -56,5 +57,18 @@ public class PriorityQueueTest {
         assertEquals(1,kthLargest.add(-1));
         assertEquals(2,kthLargest.add(3));
         assertEquals(3,kthLargest.add(4));
+    }
+
+    @Test
+    public void kClosestTest(){
+//        int[][] point =  {{1,3},{-2,2}};
+//        int[][] exp = {{-2,2}};
+//
+//        assertEquals(exp,pq.kClosest(point,1));
+
+        int[][] point2 =  {{3,3},{5,-1},{-2,4}};
+        int[][] exp1 ={{-2,4},{3,3}};
+//        Arrays.stream(pq.kClosest(point2, 2)).forEach(System.out::println);
+        assertEquals(exp1,pq.kClosest(point2, 2));
     }
 }

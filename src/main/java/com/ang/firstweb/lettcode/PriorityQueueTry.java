@@ -2,7 +2,7 @@ package com.ang.firstweb.lettcode;
 
 import java.util.*;
 
-public class PriorityQueue {
+public class PriorityQueueTry {
 
 
     public List<Integer> topKFrequentClean(int[] nums, int k) {
@@ -94,7 +94,7 @@ public class PriorityQueue {
     public static void main(String[] args) {
 //        int[] num = {3,6,1,7,4,9,3};
         Integer[] num = new Integer[]{3, 6, 1, 7, 4, 9, 3};
-        PriorityQueue pq = new PriorityQueue();
+        PriorityQueueTry pq = new PriorityQueueTry();
         for (int i = num.length / 2; i >= 0; i--) {
             pq.rebalance(num, i, num.length, null);
         }
@@ -105,6 +105,30 @@ public class PriorityQueue {
             pq.rebalance(num, 0, len - j, null);
         }
         Arrays.stream(num).forEach(System.out::println);
+    }
+
+
+    public int[][] kClosest(int[][] points, int K) {
+        java.util.PriorityQueue<Integer>  pq = new java.util.PriorityQueue<>(K, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return (points[o2][0]*points[o2][0]+points[o2][1]*points[o2][1])- (points[o1][0]*points[o1][0]+points[o1][1]*points[o1][1])  ;
+            }
+        });
+
+        for(int i=0;i<points.length;i++){
+            pq.add(i);
+            if(pq.size()>K){
+                pq.poll();
+            }
+        }
+        int[][] res = new int[pq.size()][];
+        int i = 0;
+        while(!pq.isEmpty()){
+            res[i] = points[pq.remove()];
+            i++;
+        }
+        return res;
     }
 }
 
