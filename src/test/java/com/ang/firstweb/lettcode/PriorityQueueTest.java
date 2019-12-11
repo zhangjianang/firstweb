@@ -3,8 +3,7 @@ package com.ang.firstweb.lettcode;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -70,5 +69,49 @@ public class PriorityQueueTest {
         int[][] exp1 ={{-2,4},{3,3}};
 //        Arrays.stream(pq.kClosest(point2, 2)).forEach(System.out::println);
         assertEquals(exp1,pq.kClosest(point2, 2));
+    }
+
+    @Test
+    public void topKFrequentTest(){
+        String[] words = {"i", "love", "leetcode", "i", "love", "coding"};
+        int k = 2;
+        assertEquals(new ArrayList<String>(){{add("i");add("love");}},pq.topKFrequent(words,k));
+
+
+        String[] words2 ={"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"};
+        assertEquals(new ArrayList<String>(){{add("the");add("is");add("sunny");add("day");}},pq.topKFrequent(words2,4));
+
+        String[] words3 ={"i", "love", "leetcode", "i", "love", "coding"};
+        assertEquals(new ArrayList<String>(){{add("i");add("love");add("coding");}},pq.topKFrequent(words3,3));
+    }
+
+    @Test
+    public void sthTest(){
+        ArrayList a1 = new ArrayList();
+        a1.add("java01");
+        a1.add("java02");
+        a1.add("java03");
+        System.out.println(a1);
+        ListIterator li = a1.listIterator();
+        while(li.hasNext()) {
+            Object obj = li.next();
+            if (obj.equals("java01")) {
+                li.set("java009");
+            }
+        }
+        System.out.println(a1);
+    }
+
+
+    @Test
+    public void frequencySortTest(){
+        assertEquals("aaaccc",pq.frequencySort("cccaaa"));
+        assertEquals("bbAa",pq.frequencySort("Aabb"));
+    }
+    @Test
+    public void firstUniqCharTest(){
+//        assertEquals(0,pq.firstUniqChar("leetcode"));
+//        assertEquals(2,pq.firstUniqChar("loveleetcode"));
+        assertEquals(-1,pq.firstUniqChar("aadadaad"));
     }
 }
