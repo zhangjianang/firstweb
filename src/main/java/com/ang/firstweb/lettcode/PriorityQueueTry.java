@@ -233,6 +233,10 @@ public class PriorityQueueTry {
         }
         return res;
     }
+
+    public boolean isPossible(int[] nums) {
+        return false;
+    }
 }
 
 class KthLargest {

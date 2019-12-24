@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@SpringBootApplication
-@ComponentScan
-
+//@SpringBootApplication
 public class FirstwebApplication {
 
 	public static void main(String[] args) {
